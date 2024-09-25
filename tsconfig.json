@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "lib": ["ES2022"],
+        "module": "commonjs",
+        "target": "ES2022",
+        "noEmit": false,
+        "esModuleInterop": true,
+        "strict": true,
+        "importHelpers": true,
+        "noImplicitReturns": true,
+        "strictNullChecks": true,
+        "sourceMap": true,
+        "outDir": "./dist",
+        "declaration": true,
+        "typeRoots": ["./node_modules/@types"],
+        "extendedDiagnostics": false,
+        /* tsoa */
+        "moduleResolution": "node",
+        "baseUrl": ".",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "resolveJsonModule": true
+    },
+    "exclude": ["node_modules", "dist", "**/*.spec.ts", "__tests__", "packages"]
+}
