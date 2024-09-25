@@ -1,0 +1,38 @@
+{
+  "name": "sl-test-api",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=18",
+    "npm": ">=8"
+  },
+  "scripts": {
+    "test": "NODE_ENV=test jest --detectOpenHandles",
+    "build": "tsoa spec-and-routes && tsc",
+    "start": "node dist/server.js",
+    "sl-start": "npx slnodejs run --token $SEALIGHTS_TOKEN --buildsessionidfile ./buildSessionId --workspacepath ./src -- dist/server.js",
+    "test:sealights": "npm run sealights:init && npm run sealights:scan && npm run sealights:start-listener && npm run test && npm run sealights:upload-unit && npm run sealights:upload-coverage && npm run sealights:stop-listener",
+    "sealights:init": "npx slnodejs config --token $SEALIGHTS_TOKEN  --appName 'service-cfeeds-api' --branch $GIT_REF --build $GIT_HASH",
+    "sealights:scan": "SL_fileExtensions='.ts,.tsx' npx slnodejs scan --token $SEALIGHTS_TOKEN --buildsessionidfile ./buildSessionId --projectRoot '/Users/s.gray/Casework/plutoTV-tsoa-proj/sl-test-api@v2' --workspacepath  './src' --scm none --es6Modules",
+    "sealights:start-listener": "npx slnodejs start --token $SEALIGHTS_TOKEN --buildsessionidfile ./buildSessionId --teststage 'Unit Tests'",
+    "sealights:stop-listener": "npx slnodejs end --token $SEALIGHTS_TOKEN --buildsessionidfile ./buildSessionId",
+    "sealights:upload-coverage": "npx slnodejs nycReport --token $SEALIGHTS_TOKEN --buildsessionidfile ./buildSessionId --report './coverage/coverage-final.json' --projectRoot '/Users/s.gray/Casework/plutoTV-tsoa-proj/sl-test-api@v2'",
+    "sealights:upload-unit": "npx slnodejs uploadReports --token $SEALIGHTS_TOKEN --buildsessionidfile ./buildSessionId --reportFile './coverage/junit.xml'"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "joi": "^17.13.3",
+    "slnodejs": "^6.1.930",
+    "tslib": "^2.7.0",
+    "tsoa": "^6.4.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.13",
+    "@types/supertest": "^6.0.2",
+    "jest": "^29.7.0",
+    "jest-config": "^29.7.0",
+    "jest-junit": "^16.0.0",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5"
+  }
+}
